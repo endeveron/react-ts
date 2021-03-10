@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import NavBar from './components/NavBar/NavBar'
 import ToDoForm from './components/ToDoForm/ToDoForm'
@@ -9,6 +9,15 @@ declare var confirm: (question: string) => boolean
 
 const App: React.FunctionComponent = () => {
   const [todoArr, setToDoArr] = useState<IToDo[]>([])
+
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem('todos') || '[]') as IToDo[]
+    setToDoArr(saved)
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todoArr))
+  }, [todoArr])
 
   const addHandler = (title: string) => {
     const newToDo: IToDo = {
