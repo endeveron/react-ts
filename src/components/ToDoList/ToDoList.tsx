@@ -18,6 +18,11 @@ const ToDoList: React.FC<ToDoListProps> = ({
       return (<p>No todos</p>)
     }
 
+    const removeHandler = (e:React.MouseEvent, id:number) => {
+      e.preventDefault()
+      onRemove(id)
+    }
+
     return (
       <ul>
         { todos.map(todo => {
@@ -35,7 +40,7 @@ const ToDoList: React.FC<ToDoListProps> = ({
                   checked={todo.completed} />
                 <span>{todo.title}</span>
                 <i 
-                  onClick={() => onRemove(todo.id)}
+                  onClick={(e) => removeHandler(e, todo.id)}
                   className="material-icons red-text">delete</i>
               </label>
             </li>

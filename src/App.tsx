@@ -5,6 +5,8 @@ import ToDoForm from './components/ToDoForm/ToDoForm'
 import ToDoList from './components/ToDoList/ToDoList'
 import IToDo from './interfaces/todo'
 
+declare var confirm: (question: string) => boolean
+
 const App: React.FunctionComponent = () => {
   const [todoArr, setToDoArr] = useState<IToDo[]>([])
 
@@ -30,7 +32,8 @@ const App: React.FunctionComponent = () => {
   }
 
   const removeHandler = (id: number) => {
-    setToDoArr(prev => prev.filter(todo => todo.id !== id))
+    const shouldRemove = confirm('Are you sure ?')
+    if (shouldRemove) setToDoArr(prev => prev.filter(todo => todo.id !== id))
   }
 
   return (
