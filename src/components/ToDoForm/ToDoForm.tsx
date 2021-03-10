@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-const ToDoForm: React.FunctionComponent = () => {
+interface ToDoFormProps {
+  onAdd(title: string): void
+}
+
+const ToDoForm: React.FunctionComponent<ToDoFormProps> = props => {
   const [title, setTitle] = useState<string>('')
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -8,8 +12,7 @@ const ToDoForm: React.FunctionComponent = () => {
   }
 
   const keyPressHandler = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') console.log(title)
-    setTitle('')
+    if (e.key === 'Enter') props.onAdd(title)
   }
 
   return (
